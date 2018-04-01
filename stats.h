@@ -36,8 +36,8 @@
  * @return <Add Return Informaiton here>
  */
 void print_array(unsigned char *array, unsigned int size);
-int find_mean(unsigned char *array, unsigned int size);
-int find_median(unsigned char *array, unsigned int size);
+double find_mean(unsigned char *array, unsigned int size);
+double find_median(unsigned char *array, unsigned int size);
 int find_maximum(unsigned char *array, unsigned int size);
 int find_minimum(unsigned char *array, unsigned int size);
 int print_statistics(unsigned char *array, unsigned int size);

@@ -22,6 +22,7 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "stats.h"
 
 /* Size of the Data Set */
@@ -37,22 +38,68 @@ void main() {
 
   /* Other Variable Declarations Go Here */
   /* Statistics and Printing Functions Go Here */
+  print_statistics(test, SIZE);
+  sort_array(test, SIZE);
   print_array(test, SIZE);
 
 }
 void print_array(unsigned char *array, unsigned int size){
-  printf("print array:\n");
+  int n = 0;
   for(int i = 0; i < size; i++){
-    printf("%u, ", *array);
-    array++;
+    printf("%u, ", array[i]);
+    n++;
+    if(n%10 == 0) printf("\n");
   }
 }
 
-int find_mean(unsigned char *array, unsigned int size){}
-int find_median(unsigned char *array, unsigned int size){}
-int find_maximum(unsigned char *array, unsigned int size){}
-int find_minimum(unsigned char *array, unsigned int size){}
-int print_statistics(unsigned char *array, unsigned int size){}
-void sort_array(unsigned char *array, unsigned int size){}
+double find_mean(unsigned char *array, unsigned int size){
+  double average = 0;
+  for(int i = 0; i < size; i++){
+    average += *array;
+    array++;
+  }
+  return average/size;
+}
+
+double find_median(unsigned char *array, unsigned int size){
+  sort_array(array, size);
+  if(size % 2 != 0) return (array[size/2]);
+  else return (array[size/2 - 1] + array[size/2])/2.0;
+}
+int find_maximum(unsigned char *array, unsigned int size){
+  int max = 0;
+  for(int i = 0; i < size; i++){
+    if(*array > max){
+      max = *array;
+    }
+  array++;
+  }
+  return max;
+}
+int find_minimum(unsigned char *array, unsigned int size){
+  int min = 255;
+  for(int i = 0; i < size; i++){
+    if(*array < min){
+      min = *array;
+    }
+  array++;
+  }
+  return min;
+}
+int print_statistics(unsigned char *array, unsigned int size){
+  printf("print array: \n");
+  print_array(array, size);
+  printf("avarage of array is: %f\n", find_mean(array, size));
+  printf("maximum of array is: %d\n", find_maximum(array, size));
+  printf("minimum of array is: %d\n", find_minimum(array, size));
+  printf("median of array is: %f\n", find_median(array, size));
+  
+}
+void sort_array(unsigned char *array, unsigned int size){
+  int comparison(const void *a, const void *b){
+    return (*(unsigned char *)b - *(unsigned char *)a);
+  }
+  qsort((void*)array, size, sizeof(array[0]), comparison);
+}
 
 /* Add other Implementation File Code Here */
